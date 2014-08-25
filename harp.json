@@ -1,0 +1,6 @@
+{
+	"globals" : {
+		"javascriptBase" : "javascript",
+		"cssBase" : "styles"
+	}
+}

@@ -1,0 +1,38 @@
+<% 
+/* Auto Script for Javascript and CSS, loads a css/js file into the application
+ * if the current file name and path match a file and path within a js or css
+ * directory
+ */
+function findResource(head, tail, filter) {
+	for (key in head) { 
+		val = head[key]
+		if (key == '_contents') { 
+			for (i in val) { 
+				file = val[i]
+				console.log(tail + file)
+				if (filter.test(tail + file) ) { 
+					return true
+				}
+			}
+		} else { 
+			return findResource(val, tail + key + "/", filter)
+		}
+	}
+	return false
+}
+
+	
+function resourceExists(base, ext){
+	filter = new RegExp("(^" + base + "/" + current.path.join("/")  + "\." + ext + "$)") 	
+	
+	return findResource(public, "", filter) 
+}
+
+if( resourceExists(cssBase,"css") ){
+	%><link rel="stylesheet" type="text/css" href="/<%= cssBase + "/" + current.path.join("/") + ".css" %>"><%
+}
+if( resourceExists(javascriptBase,"js") ){
+	%><script type="text/javascript" src="/<%= javascriptBase + "/" + current.path.join("/") + ".js" %>"></script><%
+}	
+
+%>
