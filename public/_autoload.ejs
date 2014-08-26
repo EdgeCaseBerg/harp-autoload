@@ -23,7 +23,6 @@ function findResource(head, tail, filter) {
 
 	
 function resourceExists(base, ext){
-	
 	filter = new RegExp("(^/" + base + "/" + current.path.join("/")  + "\." + ext + "$)") 	
 	return findResource(public, "/", filter) 
 }
@@ -35,5 +34,4 @@ if( resourceExists(cssBase,"css") ){
 if( resourceExists(javascriptBase,"js") ){
 	%><script type="text/javascript" src="/<%= javascriptBase + "/" + current.path.join("/") + ".js" %>"></script><%
 }	
-
 %>
