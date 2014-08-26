@@ -4,29 +4,30 @@
  * directory
  */
 function findResource(head, tail, filter) {
+	var result = false
 	for (key in head) { 
 		val = head[key]
 		if (key == '_contents') { 
 			for (i in val) { 
 				file = val[i]
-				console.log(tail + file)
 				if (filter.test(tail + file) ) { 
 					return true
 				}
 			}
 		} else { 
-			return findResource(val, tail + key + "/", filter)
+			result = findResource(val, tail + key + "/", filter)
+			if(result) return result
 		}
 	}
-	return false
 }
 
 	
 function resourceExists(base, ext){
-	filter = new RegExp("(^" + base + "/" + current.path.join("/")  + "\." + ext + "$)") 	
 	
-	return findResource(public, "", filter) 
+	filter = new RegExp("(^/" + base + "/" + current.path.join("/")  + "\." + ext + "$)") 	
+	return findResource(public, "/", filter) 
 }
+
 
 if( resourceExists(cssBase,"css") ){
 	%><link rel="stylesheet" type="text/css" href="/<%= cssBase + "/" + current.path.join("/") + ".css" %>"><%
